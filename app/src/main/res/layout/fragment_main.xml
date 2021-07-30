@@ -5,21 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/tv_text"
+        android:id="@+id/main_fragment_tv_text"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:textSize="16sp"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_confirm"
+        app:layout_constraintBottom_toTopOf="@id/main_fragment_bt_confirm"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <Button
-        android:id="@+id/bt_confirm"
+        android:id="@+id/main_fragment_bt_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tv_text"
+        app:layout_constraintTop_toBottomOf="@+id/main_fragment_tv_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

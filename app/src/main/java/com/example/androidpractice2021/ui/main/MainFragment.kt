@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.androidpractice2021.R
@@ -31,7 +30,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.apply {
-            findViewById<TextView>(R.id.tv_text).apply {
+            findViewById<TextView>(R.id.main_fragment_tv_text).apply {
                 text = """This is Practise App.
                     |
                     |Test API Server
@@ -39,7 +38,7 @@ class MainFragment : Fragment() {
                 """.trimMargin()
             }
 
-            findViewById<Button>(R.id.bt_confirm).apply {
+            findViewById<Button>(R.id.main_fragment_bt_confirm).apply {
                 text = "access"
                 setOnClickListener {
                     val intent = Intent(requireActivity(), SubActivity::class.java)

@@ -18,12 +18,11 @@ class SimpleAPI(
 ) {
 
     /**
-     *
      * 非同期処理の完了を実装先に通知するためのインターフェースです。
      */
     interface NotifyFinished {
         fun onFinished(model: SimpleModel)
-        fun onFailure()
+        fun onFailure(mes: String)
     }
 
     // インスタンス生成が重いので事前に生成しておく。
@@ -32,6 +31,10 @@ class SimpleAPI(
     private val requestBuilder = Request.Builder()
     private val jacksonObjectMapper = jacksonObjectMapper()
 
+    /**
+     * 非同期でHTTPリクエストを処理します。
+     * 結果はNotifyFinishedをリッスンしている先に通知されます。
+     */
     fun getApi() {
         val request = this.requestBuilder
             .url("https://the-most-simple-api.herokuapp.com/")
@@ -46,22 +49,33 @@ class SimpleAPI(
 
                 Log.d("API", "onResponse ${request.url}")
 
+                //レスポンスコードで処理分け
                 val model = requireNotNull(
                     when (response.code) {
                     200 -> body.parseJson<SimpleModel>()
-                    else ->  throw IllegalAccessException("${response.code} : サーバに接続できませんでした。")
+                    else -> {
+                        listener.onFailure("${response.code} : サーバに接続できませんでした。")
+                        null
+                    }
                 })
 
+                //リスナーに処理完了を通知
                 listener.onFinished(model)
                 Log.d("API", "Finished getApi()")
             }
 
             override fun onFailure(call: Call, e: IOException) {
+                listener.onFailure("サーバに接続できませんでした。")
                 throw IllegalAccessException("${e.printStackTrace()} : サーバに接続できませんでした。")
             }
         })
     }
 
+    /**
+     * Stringから指定されたmodelを用いてJSONのパースを行います。
+     * @param T: Class
+     * @return T?
+     */
     private inline fun <reified T> String.parseJson(): T?  =
         try {
             jacksonObjectMapper.readValue(this, T::class.java)

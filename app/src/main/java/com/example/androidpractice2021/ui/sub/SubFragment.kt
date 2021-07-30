@@ -39,22 +39,30 @@ class SubFragment :
         super.onViewCreated(view, savedInstanceState)
         Log.d("View", "SubFragment view created.")
 
-        view.findViewById<TextView>(R.id.tv_result).text = "Now Loading..."
+        view.findViewById<TextView>(R.id.sub_fragment_tv_result).text = "Now Loading..."
 
         simpleAPI.getApi()
     }
 
+    /**
+     * SimpleAPIでの処理が終わったときに呼び出されます。
+     * @param model: SimpleModel
+     */
     override fun onFinished(model: SimpleModel) {
         //GETしてきたテキストをTextViewに反映させる。
-        requireView().findViewById<TextView>(R.id.tv_result).text = model.text
+        requireView().findViewById<TextView>(R.id.sub_fragment_tv_result).text = model.text
     }
 
-    override fun onFailure() {
+    /**
+     * SimpleAPIでの処理が終わったときに呼び出されます。
+     * @param mes: String
+     */
+    override fun onFailure(mes: String) {
         //ダイアログはUIスレッドでないと発行できないため、明示的にUIスレッドに処理させる。
         this.handler.post {
             AlertDialog.Builder(requireContext())
                 .setTitle("エラー")
-                .setMessage("サーバとの通信に失敗しました。")
+                .setMessage("サーバとの通信に失敗しました。\n$mes")
                 .setPositiveButton("再試行") { _, _ -> simpleAPI.getApi() }
                 .setNegativeButton("キャンセル") { _, _ -> }
                 .create()
