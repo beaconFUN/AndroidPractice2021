@@ -12,9 +12,7 @@
 ![メイン画面](docs/main.png)
 
 ## サブ画面
-読み込み中
 ![読み込み中](docs/sub_1.png)
-完了
 ![完了](docs/sub_2.png)
 
 # APIについて
