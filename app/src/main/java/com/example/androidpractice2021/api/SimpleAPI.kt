@@ -10,6 +10,7 @@ import java.io.IOException
 
 /**
  * REST APIと実際に通信を行う処理です。
+ * Herokuを使用しているので、アクセス完了に最大10秒程度かかる可能性があります。
  * @author Squatarola 2021
  */
 class SimpleAPI(

@@ -6,7 +6,7 @@ import com.example.androidpractice2021.R
 
 /**
  * アプリケーション実行時、最初に実行されるActicityです。
- * MainFragmentの表示の処理のみを行っています。
+ * SubFragmentの表示の処理のみを行っています。
  * @author Squatarola 2021
  */
 class SubActivity : AppCompatActivity() {
